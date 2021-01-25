@@ -2,6 +2,8 @@
 using EOG.LCR.UI.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace EOG.LCR.UI.Commands
@@ -18,36 +20,49 @@ namespace EOG.LCR.UI.Commands
 
         public void Execute(object parameter)
         {
-            var setup = (GameSetupViewModel)parameter;
+            var simulator = (GameSetupViewModel)parameter;
 
-            // If input is invalid, do nothing
-            if (!(setup.IsNumberOfGamesValid && setup.IsNumberOfPlayersValid))
-                return;
-
-            // Create the required amount of players for simulation
-            var players = new List<Player>();
-            for (int i = 0, j = setup.NumberOfPlayers; i < j; i++)
+            var gameThread = new Thread(new ThreadStart(() =>
             {
-                players.Add(new Player { Name = $"Player {i + 1}" });
-            }
+                // If input is invalid, do nothing
+                if (!(simulator.IsNumberOfGamesValid && simulator.IsNumberOfPlayersValid))
+                    return;
 
-            // Create each simulated game, run it, and add it to the 
-            // collection of played games
-            var games = new List<Game>();
-            for (int i = 0, j = setup.NumberOfGames; i < j; i++)
-            {
-                var dotgame = new Game(players);
-                dotgame.Start();
+                simulator.IsRunning = true;
 
-                games.Add(dotgame);
+                // Create the required amount of players for simulation
+                var players = new List<Player>();
+                for (int i = 0, j = simulator.NumberOfPlayers; i < j; i++)
+                {
+                    players.Add(new Player { Name = $"Player {i + 1}" });
+                }
 
-                // After a game is finished, restart each player chips
-                foreach (var player in players)
-                    player.Chips = Rules.NUMBER_OF_INITIAL_CHIPS;
-            }
+                // Create each simulated game, run it, and add it to the 
+                // collection of played games
+                var games = new List<Game>();
+                for (int i = 0, j = simulator.NumberOfGames; i < j; i++)
+                {
+                    var dotgame = new Game(players);
+                    dotgame.Start();
 
-            var resultsWindow = new GameOutputWindow(games);
-            resultsWindow.ShowDialog();
+                    games.Add(dotgame);
+                    simulator.GamesFinished = i + 1;
+
+                    // After a game is finished, restart each player chips
+                    foreach (var player in players)
+                        player.Chips = Rules.NUMBER_OF_INITIAL_CHIPS;
+                }
+
+                simulator.IsRunning = false;
+
+                var resultsWindow = new GameOutputWindow(games);
+                resultsWindow.ShowDialog();
+            }));
+
+            // Put simulation on an single thread, since have dependant UI components
+            gameThread.SetApartmentState(ApartmentState.STA);
+            gameThread.IsBackground = true;
+            gameThread.Start();
         }
     }
 }

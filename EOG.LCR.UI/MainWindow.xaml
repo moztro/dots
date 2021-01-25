@@ -23,7 +23,8 @@
                 Text="{Binding NumberOfPlayers}" 
                 HorizontalAlignment="Center" 
                 Width="100" 
-                TextAlignment="Center" />
+                TextAlignment="Center"
+                IsEnabled="{Binding IsInputEnabled}" />
             <Label
                 Content="At least 3 players are required to play DOT"
                 Visibility="{Binding NumberOfPlayersErrorMessageVisibility}"
@@ -38,7 +39,8 @@
                 Text="{Binding NumberOfGames}" 
                 HorizontalAlignment="Center" 
                 Width="100" 
-                TextAlignment="Center" />
+                TextAlignment="Center" 
+                IsEnabled="{Binding IsInputEnabled}" />
             <Label
                 Content="Yeah... you probably wanna setup at least 1 game, right?"
                 Visibility="{Binding NumberOfGamesErrorMessageVisibility}"
@@ -51,7 +53,23 @@
                 Command="{Binding Path=SetupGameCommand}"
                 CommandParameter="{Binding .}"
                 Width="130" 
-                Margin="0,15,0,0"/>
+                Margin="0,15,0,0"
+                IsEnabled="{Binding IsSubmitButtonEnabled}"/>
+
+            <StackPanel
+                Orientation="Horizontal"
+                HorizontalAlignment="Center"
+                Visibility="{Binding LoadingMessageVisibility}">
+
+                <Label
+                    Content="Hang in there, we are simulating" />
+                <Label
+                    Content="{Binding GamesFinished}" />
+                <Label
+                    Content="out of" />
+                <Label
+                    Content="{Binding NumberOfGames}" />
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Window>

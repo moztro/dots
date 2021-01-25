@@ -16,6 +16,8 @@ namespace EOG.LCR.UI.ViewModels
             // Hide error messages at the start
             NumberOfPlayersErrorMessageVisibility = Visibility.Hidden;
             NumberOfGamesErrorMessageVisibility = Visibility.Hidden;
+
+            IsRunning = false;
         }
 
         #region Properties
@@ -47,6 +49,42 @@ namespace EOG.LCR.UI.ViewModels
                 IsNumberOfGamesValid = value > 0;
                 _numberOfGames = value;
                 OnPropertyChanged();
+            }
+        }
+
+        private int _gamesFinished;
+        public int GamesFinished
+        {
+            get => _gamesFinished;
+            set
+            {
+                _gamesFinished = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Indicate if the simulation is running
+        /// </summary>
+        private bool _isRunning;
+        public bool IsRunning
+        {
+            get => _isRunning;
+            set
+            {
+                _isRunning = value;
+
+                // Show or hide the loading message
+                LoadingMessageVisibility = value ? Visibility.Visible : Visibility.Hidden;
+                OnPropertyChanged(nameof(LoadingMessageVisibility));
+
+                // Enable or disable the submit button
+                IsSubmitButtonEnabled = !value;
+                OnPropertyChanged(nameof(IsSubmitButtonEnabled));
+
+                // Enable or disable input fields
+                IsInputEnabled = !value;
+                OnPropertyChanged(nameof(IsInputEnabled));
             }
         }
         #endregion Properties
@@ -86,6 +124,9 @@ namespace EOG.LCR.UI.ViewModels
                 OnPropertyChanged(nameof(NumberOfGamesErrorMessageVisibility));
             }
         }
+        #endregion Validation Messages Props
+
+        #region UI State Properties
 
         private Visibility _numberOfGamesErrorMessageVisibility;
         public Visibility NumberOfGamesErrorMessageVisibility
@@ -108,6 +149,39 @@ namespace EOG.LCR.UI.ViewModels
                 OnPropertyChanged();
             }
         }
-        #endregion Validation Messages Props
+
+        private Visibility _loadingMessageVisibility;
+        public Visibility LoadingMessageVisibility
+        {
+            get => _loadingMessageVisibility;
+            set
+            {
+                _loadingMessageVisibility = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _isSubmitButtonEnabled;
+        public bool IsSubmitButtonEnabled
+        {
+            get => _isSubmitButtonEnabled;
+            set
+            {
+                _isSubmitButtonEnabled = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _isInputEnabled;
+        public bool IsInputEnabled
+        {
+            get => _isInputEnabled;
+            set
+            {
+                _isInputEnabled = value;
+                OnPropertyChanged();
+            }
+        }
+        #endregion UI State Properties
     }
 }
