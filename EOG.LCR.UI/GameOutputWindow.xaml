@@ -1,0 +1,48 @@
+﻿<Window x:Class="EOG.LCR.UI.GameOutputWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EOG.LCR.UI"
+        mc:Ignorable="d"
+        Title="GameOutputWindow" Height="450" Width="800">
+    <Grid>
+        <StackPanel
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
+
+            <Label
+                Content="Game statistics by turns played"
+                HorizontalAlignment="Center"
+                FontWeight="Bold"
+                FontSize="18" />
+
+            <StackPanel
+                Orientation="Horizontal"
+                HorizontalAlignment="Center">
+                <Label
+                    Content="Shortest game length" />
+                <Label
+                    Content="{Binding ShortestLengthGame}" />
+            </StackPanel>
+
+            <StackPanel
+                Orientation="Horizontal"
+                HorizontalAlignment="Center">
+                <Label
+                    Content="Longest game length" />
+                <Label
+                    Content="{Binding LongestLengthGame}" />
+            </StackPanel>
+
+            <StackPanel
+                Orientation="Horizontal"
+                HorizontalAlignment="Center">
+                <Label
+                    Content="Average game length" />
+                <Label
+                    Content="{Binding AverageLengthGame}" />
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

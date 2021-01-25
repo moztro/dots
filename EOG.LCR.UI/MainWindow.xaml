@@ -7,6 +7,39 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <StackPanel
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
+            <Label 
+                Content="Welcome to DOT simulator! First of all, let's setup some things..." 
+                HorizontalAlignment="Center" 
+                FontWeight="Bold" 
+                FontSize="18"/>
+            
+            <Label 
+                Content="How many players are gonna play?" 
+                HorizontalAlignment="Center" />
+            <TextBox 
+                Text="{Binding NumberOfPlayers}" 
+                HorizontalAlignment="Center" 
+                Width="100" 
+                TextAlignment="Center" />
+
+            <Label 
+                Content="Alright, now how many games do you want to simulate?" 
+                HorizontalAlignment="Center" />
+            <TextBox 
+                Text="{Binding NumberOfGames}" 
+                HorizontalAlignment="Center" 
+                Width="100" 
+                TextAlignment="Center" />
+
+            <Button 
+                Content="Let's simulate DOT" 
+                Command="{Binding Path=SetupGameCommand}"
+                CommandParameter="{Binding .}"
+                Width="130" 
+                Margin="0,15,0,0"/>
+        </StackPanel>
     </Grid>
 </Window>

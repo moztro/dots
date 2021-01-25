@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using EOG.LCR.UI.ViewModels;
+using System.Windows;
 
 namespace EOG.LCR.UI
 {
@@ -10,6 +11,13 @@ namespace EOG.LCR.UI
         public MainWindow()
         {
             InitializeComponent();
+
+            SetupViewModel();
+        }
+
+        public void SetupViewModel()
+        {
+            DataContext = new GameSetupViewModel();
         }
     }
 }
