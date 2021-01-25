@@ -8,7 +8,7 @@ namespace EOG.LCR.Model
     public class Player
     {
         public string Name { get; set; }
-        public int Chips { get; set; } = 3;
+        public int Chips { get; set; } = Rules.NUMBER_OF_INITIAL_CHIPS;
 
         /// <summary>
         /// A player rolls the dice.
@@ -16,8 +16,9 @@ namespace EOG.LCR.Model
         /// <returns>A side of the dice</returns>
         public Side Roll()
         {
-            int minRollValue = (int)Side.Dot1;
-            int maxRollValue = (int)Side.R;
+            var dice = new Dice();
+            int minRollValue = (int)dice.Min;
+            int maxRollValue = (int)dice.Max;
             int roll = new Random().Next(minRollValue, maxRollValue);
 
             return (Side)roll;

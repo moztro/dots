@@ -20,6 +20,9 @@
             Side.R
         };
 
+        public Side Min => _side[0];
+        public Side Max => _side[_side.Length - 1];
+
         public Side this[int index]
         {
             get => _side[index];

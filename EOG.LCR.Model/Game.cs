@@ -9,8 +9,6 @@ namespace EOG.LCR.Model
     /// </summary>
     public class Game
     {
-        private const int _minNumberOfPlayers = 3;
-
         /// <summary>
         /// Number of turns played
         /// </summary>
@@ -31,8 +29,8 @@ namespace EOG.LCR.Model
         /// </summary>
         public void Start()
         {
-            if (Players == null || Players.Count() < _minNumberOfPlayers)
-                throw new InvalidOperationException($"You need a minimum of {_minNumberOfPlayers} players to play Dot");
+            if (Players == null || Players.Count() < Rules.MINIMUM_NUMBER_OF_PLAYERS)
+                throw new InvalidOperationException($"You need a minimum of {Rules.MINIMUM_NUMBER_OF_PLAYERS} players to play Dot");
 
             // Continue playing until there is only 1 player with chips
             while (Players.Count(p => p.Chips > 0) > 1)
@@ -43,7 +41,7 @@ namespace EOG.LCR.Model
                 {
                     Side rolledSide = player.Roll();
 
-                    switch (rolledSide)
+                    switch(rolledSide)
                     {
                         case Side.Dot1:
                         case Side.Dot2:
