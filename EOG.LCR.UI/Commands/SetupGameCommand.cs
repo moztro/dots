@@ -20,6 +20,10 @@ namespace EOG.LCR.UI.Commands
         {
             var setup = (GameSetupViewModel)parameter;
 
+            // If input is invalid, do nothing
+            if (!(setup.IsNumberOfGamesValid && setup.IsNumberOfPlayersValid))
+                return;
+
             // Create the required amount of players for simulation
             var players = new List<Player>();
             for (int i = 0, j = setup.NumberOfPlayers; i < j; i++)

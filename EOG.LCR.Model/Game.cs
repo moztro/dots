@@ -29,6 +29,8 @@ namespace EOG.LCR.Model
         /// </summary>
         public void Start()
         {
+            // This is already validated per UI input, but this is just to ensure that the rule is still
+            // honored during unit testing (or other potential consumers)
             if (Players == null || Players.Count() < Rules.MINIMUM_NUMBER_OF_PLAYERS)
                 throw new InvalidOperationException($"You need a minimum of {Rules.MINIMUM_NUMBER_OF_PLAYERS} players to play Dot");
 

@@ -24,6 +24,12 @@
                 HorizontalAlignment="Center" 
                 Width="100" 
                 TextAlignment="Center" />
+            <Label
+                Content="At least 3 players are required to play DOT"
+                Visibility="{Binding NumberOfPlayersErrorMessageVisibility}"
+                HorizontalAlignment="Center" 
+                Foreground="#FF0000"
+                Height="Auto" />
 
             <Label 
                 Content="Alright, now how many games do you want to simulate?" 
@@ -33,6 +39,12 @@
                 HorizontalAlignment="Center" 
                 Width="100" 
                 TextAlignment="Center" />
+            <Label
+                Content="Yeah... you probably wanna setup at least 1 game, right?"
+                Visibility="{Binding NumberOfGamesErrorMessageVisibility}"
+                HorizontalAlignment="Center" 
+                Foreground="#FF0000"
+                Height="Auto" />
 
             <Button 
                 Content="Let's simulate DOT" 
