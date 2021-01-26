@@ -41,6 +41,10 @@ namespace EOG.LCR.Model
                 // Start the turn by going over each player for roll
                 foreach (Player player in Players)
                 {
+                    // If player has no chips cannot roll, skip
+                    if (player.Chips < 1)
+                        continue;
+
                     Side rolledSide = player.Roll();
 
                     switch(rolledSide)
